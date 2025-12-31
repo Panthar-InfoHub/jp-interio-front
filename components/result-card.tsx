@@ -29,7 +29,8 @@ export function ResultCard({ result }: ResultCardProps) {
       </div>
 
       <div className="bg-secondary/50 border border-border rounded-lg p-6">
-        <p className="text-foreground leading-relaxed whitespace-pre-wrap">{result.description}</p>
+      {result.description.split('\n').map((line, i) => 
+        <p key={i} className="text-foreground leading-relaxed whitespace-pre-wrap">{line}</p>)}
       </div>
     </div>
   )

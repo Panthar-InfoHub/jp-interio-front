@@ -19,7 +19,7 @@ export async function redesignImage({ image_uri, stylePrompt }: { image_uri: str
     console.debug("Redesign API response:", data)
     return {
       success: true,
-      data
+      data: data.data
     }
   } catch (error: any) {
     console.error("Error in redesignImage:", error?.response.data)

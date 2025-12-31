@@ -58,12 +58,12 @@ export function RedesignForm() {
 
           if (response.success) {
             setResult({
-              imageUrl: response.data.imageUrl,
+              imageUrl: response.data.image_uri,
               description: response.data.description,
             })
             toast.success("Design generated successfully!")
           } else {
-            toast.error(response.error || "Failed to generate design")
+            toast.warning(response.error || "Failed to generate design")
           }
         } catch (error) {
           toast.error("An unexpected error occurred")
@@ -155,7 +155,7 @@ export function RedesignForm() {
 
       {/* Results Section */}
       {isPending && <ResultSkeleton />}
-      {/* {result && !isPending && <ResultCard result={result} />} */}
+      {result && !isPending && <ResultCard result={result} />}
     </div>
   )
 }
