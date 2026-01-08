@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -10,8 +11,12 @@ export default function Header() {
   return (
     <header className="bg-white border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-foreground">
-          Spazora
+        <Link href="/" className="flex items-center gap-3">
+          <Image src="/images/logo.png" alt="SPZADORA Logo" width={80} height={80} className="h-auto" />
+          <div>
+            <div className="font-bold text-lg text-foreground">Spzaora</div>
+            <div className="text-xs text-gray-600">Designing Dreams, Crafting Homes</div>
+          </div>
         </Link>
 
         <div className="hidden md:flex items-center gap-8 ml-auto">

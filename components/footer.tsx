@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
               <span className="w-6 h-6 bg-[#14c8eb] rounded transform rotate-45 flex items-center justify-center"></span>
-              Spazora
+              spzaora
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Crafting award-winning interiors for residential and commercial
@@ -20,38 +20,35 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Explore</h3>
+            <h3 className="font-semibold text-foreground mb-4">Info</h3>
             <ul className="text-sm space-y-2 text-muted-foreground">
               <li>
                 <Link
-                  href="#portfolio"
+                  href="/privacy"
                   className="hover:text-foreground transition"
                 >
-                  Portfolio
+                  Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#services"
+                  href="/refund"
                   className="hover:text-foreground transition"
                 >
-                  Services
+                  Refund Policy
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#about"
+                  href="/contact"
                   className="hover:text-foreground transition"
                 >
-                  About Us
+                  Contact us
                 </Link>
               </li>
               <li>
-                <Link
-                  href="#journal"
-                  className="hover:text-foreground transition"
-                >
-                  Journal
+                <Link href="/terms" className="hover:text-foreground transition">
+                  Terms of Service
                 </Link>
               </li>
             </ul>
@@ -65,7 +62,7 @@ export default function Footer() {
                   href="mailto:hello@jpinterio.com"
                   className="hover:text-foreground transition"
                 >
-                  hello@jpinterio.com
+                  kjenterprise26@gmail.com
                 </a>
               </li>
               <li>
@@ -73,12 +70,12 @@ export default function Footer() {
                   href="tel:+15551234567"
                   className="hover:text-foreground transition"
                 >
-                  +1 (555) 123-4567
+                  +91 7348489700
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <span>123 Design Ave, NY</span>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -106,7 +103,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
-            <p>© 2026 Spazora. All rights reserved.</p>
+            <p>© 2026 spzaora. All rights reserved.</p>
             <div className="  text-center text-xs text-muted-foreground">
               <p>
                 Designed and Developed by{" "}
@@ -121,14 +118,6 @@ export default function Footer() {
                 </Link>{" "}
                 .
               </p>
-            </div>
-            <div className="flex gap-6">
-              <Link href="/privacy" className="hover:text-foreground transition">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="hover:text-foreground transition">
-                Terms of Service
-              </Link>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
       <div className="max-w-3xl mx-auto">
         {/* Main Heading */}
         <h1 className="text-4xl font-bold text-center text-black mb-8">
-          Privacy Policy for Spazora
+          Privacy Policy for spzaora
         </h1>
 
         {/* Last Updated Box */}
@@ -17,11 +17,11 @@ export default function PrivacyPolicy() {
         {/* Introduction */}
         <div className="space-y-6 text-gray-700 leading-relaxed">
           <p>
-            Spazora is an AI-powered interior design platform operated by JPK Signature Spaces ("we", "our", "us"). This Privacy Policy explains how we collect, use, store, and protect user information when you use our website.
+            spzaora is an AI-powered interior design platform operated by JPK Signature Spaces ("we", "our", "us"). This Privacy Policy explains how we collect, use, store, and protect user information when you use our website.
           </p>
 
           <p>
-            By accessing or using Spazora, you agree to the terms described in this Privacy Policy.
+            By accessing or using spzaora, you agree to the terms described in this Privacy Policy.
           </p>
 
           {/* Information We Collect */}
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
             <div>
               <h3 className="font-bold text-black mb-2">3. Email Address</h3>
               <p>
-                Spazora uses Google Authentication. The user's email address is collected and stored for authentication and account-related purposes.
+                spzaora uses Google Authentication. The user's email address is collected and stored for authentication and account-related purposes.
               </p>
             </div>
 
@@ -84,7 +84,7 @@ export default function PrivacyPolicy() {
           </h2>
 
           <p>
-            Spazora uses third-party AI services, including Gemini, to process images and generate interior design outputs. Uploaded images and descriptions may be securely shared with these services only for the purpose of generating results.
+            spzaora uses third-party AI services, including Gemini, to process images and generate interior design outputs. Uploaded images and descriptions may be securely shared with these services only for the purpose of generating results.
           </p>
 
           {/* Data Storage and Security */}
@@ -134,7 +134,7 @@ export default function PrivacyPolicy() {
           </h2>
 
           <p>
-            Spazora is available globally. By using the website, you consent to the collection and processing of your data in accordance with this Privacy Policy.
+            spzaora is available globally. By using the website, you consent to the collection and processing of your data in accordance with this Privacy Policy.
           </p>
 
           {/* Changes to This Privacy Policy */}

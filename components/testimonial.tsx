@@ -8,7 +8,7 @@ export default function Testimonials() {
       name: "Sarah Jenkins",
       role: "Homeowner, NYC",
       content:
-        "Spazora completely transformed our outdated living room into a modern masterpiece. The attention to detail was incredible.",
+        "spzaora completely transformed our outdated living room into a modern masterpiece. The attention to detail was incredible.",
       rating: 5,
     },
     {

@@ -11,7 +11,7 @@ export default function Philosophy() {
               Design is not just about how it looks, but how it feels.
             </h3>
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              At Spazora, we believe that your environment profoundly impacts your well-being. Our approach blends
+              At spzaora, we believe that your environment profoundly impacts your well-being. Our approach blends
               strict functionality with aesthetic purity, creating spaces that are as livable as they are beautiful.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
