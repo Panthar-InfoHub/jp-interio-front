@@ -8,7 +8,7 @@ export default function Testimonials() {
       name: "Sarah Jenkins",
       role: "Homeowner, NYC",
       content:
-        "JP Interio completely transformed our outdated living room into a modern masterpiece. The attention to detail was incredible.",
+        "Spazora completely transformed our outdated living room into a modern masterpiece. The attention to detail was incredible.",
       rating: 5,
     },
     {

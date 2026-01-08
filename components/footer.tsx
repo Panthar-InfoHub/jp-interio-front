@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
               <span className="w-6 h-6 bg-[#14c8eb] rounded transform rotate-45 flex items-center justify-center"></span>
-              JP Interio
+              Spazora
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Crafting award-winning interiors for residential and commercial
@@ -106,7 +106,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
-            <p>© 2026 JP Interio. All rights reserved.</p>
+            <p>© 2026 Spazora. All rights reserved.</p>
             <div className="  text-center text-xs text-muted-foreground">
               <p>
                 Designed and Developed by{" "}

@@ -11,7 +11,7 @@ export default function Header() {
     <header className="bg-white border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-foreground">
-          JP Interio
+          Spazora
         </Link>
 
         <div className="hidden md:flex items-center gap-8 ml-auto">
