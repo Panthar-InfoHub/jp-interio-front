@@ -123,7 +123,7 @@ export default function Footer() {
               </p>
             </div>
             <div className="flex gap-6">
-              <Link href="#" className="hover:text-foreground transition">
+              <Link href="/privacy" className="hover:text-foreground transition">
                 Privacy Policy
               </Link>
               <Link href="#" className="hover:text-foreground transition">

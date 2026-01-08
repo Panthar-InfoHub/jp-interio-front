@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-secondary to-background">
       {/* Header */}
-      <Header />
       <div className="pt-12 pb-8 border-b border-border">
         <div className="max-w-3xl mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-light tracking-tight text-foreground mb-4 text-pretty">
@@ -36,7 +35,6 @@ export default function Home() {
       <Philosophy/>
       <Testimonials/>
       <CTASection  />
-      <Footer/>
     </main>
   )
 }
