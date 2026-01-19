@@ -6,6 +6,7 @@ import "./globals.css"
 import { Toaster } from "sonner"
 import Footer from "@/components/footer"
 import Header from "@/components/ui/header"
+import { SessionProvider } from "next-auth/react"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -41,11 +42,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
+        <SessionProvider>
         <Header/>
         {children}
         <Analytics />
          <Toaster />
          <Footer/>
+         </SessionProvider>
       </body>
     </html>
   )
