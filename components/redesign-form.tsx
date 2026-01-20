@@ -79,13 +79,14 @@ export function RedesignForm() {
             stylePrompt: value.description,
           });
 
-          if (response.success) {
+          if (response.success && response.data?.image_uri) {
             setResult({
               imageUrl: response.data.image_uri,
               description: response.data.description,
             });
             toast.success("Design generated successfully!");
           } else {
+            setResult(null);
             toast.warning(response.error || "Failed to generate design");
           }
         } catch (error) {

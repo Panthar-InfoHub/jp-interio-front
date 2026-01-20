@@ -4,6 +4,9 @@ import type { JWT } from "next-auth/jwt";
 import { API_URL } from "@/lib/apiUtil";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: {
+    strategy: "jwt", 
+  },
   providers: [Google],
   callbacks: {
     async signIn({ user, account, profile }) {
@@ -21,10 +24,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       });
 
       if (loginResponse.ok) {
-        const userData = await loginResponse.json();
+        const res  = await loginResponse.json();
         // storing token and user id for later usage
-        user.apiToken = userData.token;
-        user.userId = userData.userId;
+        user.apiToken = res.data.token;
+        user.userId = res.data.user.id;
         return true;
       }
 
@@ -40,9 +43,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       });
 
       if (signupResponse.ok) {
-        const userData = await signupResponse.json();
-        user.apiToken = userData.token;
-        user.userId = userData.userId;
+        const res = await signupResponse.json();
+        user.apiToken = res.data.token;
+        user.userId = res.data.user.id;
         return true;
       }
 

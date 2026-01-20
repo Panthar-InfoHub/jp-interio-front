@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Header() {
@@ -64,15 +64,26 @@ export default function Header() {
               Contact
             </Link>
           </nav>
-          <button
-            onClick={handleClick}
-            disabled={!!session}
-            className={`px-6 py-2 bg-[#14c8eb] text-black rounded text-sm transition font-medium
-        ${session ? "opacity-70 cursor-default" : "hover:opacity-90 cursor-pointer"}
-      `}
-          >
-            {session ? `Hello, ${session.user?.name || "User"}` : "Sign up"}
-          </button>
+          {!session ? (
+            <button
+              onClick={handleClick}
+              className="px-6 py-2 bg-[#14c8eb] text-black rounded text-sm transition font-medium hover:opacity-90"
+            >
+              Sign up
+            </button>
+          ) : (
+            <div className="flex items-center gap-4 ">
+              <span className=" px-6 py-2 text-sm text-foreground bg-[#14c8eb]">
+                Hello, {session.user?.name || "User"}
+              </span>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-4 py-2 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
 
         <button
@@ -97,15 +108,22 @@ export default function Header() {
               <Link href="#contact" className="text-sm text-foreground">
                 Contact
               </Link>
-              <button
-                onClick={handleClick}
-                disabled={!!session}
-                className={`px-6 py-2 bg-[#14c8eb] text-black rounded text-sm transition font-medium
-        ${session ? "opacity-70 cursor-default" : "hover:opacity-90 cursor-pointer"}
-      `}
-              >
-                {session ? `Hello, ${session.user?.name || "User"}` : "Sign up"}
-              </button>
+              {!session ? (
+                <button
+                  onClick={handleClick}
+                  className="px-6 py-2 bg-[#14c8eb] text-black rounded text-sm transition font-medium hover:opacity-90"
+                >
+                  Sign up
+                </button>
+              ) : (
+                <button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="px-6 py-2 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              )}
+              {}
             </div>
           </nav>
         )}
