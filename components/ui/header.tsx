@@ -57,6 +57,9 @@ export default function Header() {
             >
               Services
             </Link>
+            <Link href="/premium" className="text-sm text-foreground hover:text-cyan-500 transition">
+              Premium
+            </Link>
             <Link
               href="/#contact"
               className="text-sm text-foreground hover:text-cyan-500 transition"
@@ -104,6 +107,9 @@ export default function Header() {
               </Link>
               <Link href="#services" className="text-sm text-foreground">
                 Services
+              </Link>
+              <Link href="/premium" className="text-sm text-foreground">
+                Premium
               </Link>
               <Link href="#contact" className="text-sm text-foreground">
                 Contact
