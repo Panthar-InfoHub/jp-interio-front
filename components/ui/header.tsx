@@ -67,18 +67,18 @@ export default function Header() {
           {!session ? (
             <button
               onClick={handleClick}
-              className="px-6 py-2 bg-[#14c8eb] text-black rounded text-sm transition font-medium hover:opacity-90"
+              className="px-6 py-2.5 bg-gradient-to-r from-[#14c8eb] to-[#0ea5e9] text-white rounded-lg text-sm font-semibold shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2"
             >
               Sign up
             </button>
           ) : (
             <div className="flex items-center gap-4 ">
-              <span className=" px-6 py-2 text-sm text-foreground bg-[#14c8eb]">
+                <span className="px-6 py-2 text-sm text-white font-medium bg-gradient-to-r from-[#14c8eb] to-[#0ea5e9] rounded-xl shadow-md shadow-cyan-500/20">
                 Hello, {session.user?.name || "User"}
               </span>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="px-4 py-2 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+                  className="px-5 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium shadow-md shadow-red-500/30 hover:shadow-lg hover:shadow-red-500/40 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
               >
                 Logout
               </button>
@@ -111,14 +111,14 @@ export default function Header() {
               {!session ? (
                 <button
                   onClick={handleClick}
-                  className="px-6 py-2 bg-[#14c8eb] text-black rounded text-sm transition font-medium hover:opacity-90"
+                  className="px-6 py-2.5 bg-gradient-to-r from-[#14c8eb] to-[#0ea5e9] text-white rounded-lg text-sm font-semibold shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2"
                 >
                   Sign up
                 </button>
               ) : (
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="px-6 py-2 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+                    className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
                 >
                   Logout
                 </button>

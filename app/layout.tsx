@@ -46,7 +46,7 @@ export default function RootLayout({
         <Header/>
         {children}
         <Analytics />
-         <Toaster />
+          <Toaster richColors position="top-center" />
          <Footer/>
          </SessionProvider>
       </body>
