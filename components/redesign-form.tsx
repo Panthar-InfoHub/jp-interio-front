@@ -87,6 +87,12 @@ export function RedesignForm() {
             toast.success("Design generated successfully!");
           } else {
             setResult(null);
+
+            if (response.error === "Entitlement usage limit exceeded") {
+              toast.warning("Plan limit exceeded. Please upgrade your plan.");
+              router.push("/premium");
+              return;
+            }
             toast.warning(response.error || "Failed to generate design");
           }
         } catch (error) {
