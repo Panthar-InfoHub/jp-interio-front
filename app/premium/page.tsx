@@ -1,7 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { createOrder } from "@/actions/payment";
+import { createOrder, createSubscriptionOrder } from "@/actions/payment";
 import { load } from "@cashfreepayments/cashfree-js";
 import { toast } from "sonner";
 // import Header from '@/components/header'
@@ -80,51 +80,51 @@ export default function PremiumPage() {
   };
   initializeSDK();
 
-    
+
   const handlePayment = async (planId: string, planType: string) => {
     try {
-      const response = await createOrder(planId);
+      const response = planType === 'oneTime' ? await createOrder(planId) : await createSubscriptionOrder(planId);
 
       if (!response.success || !response.data) {
         throw new Error("Failed to initiate payment");
       }
 
-      if (!cashfree ) {
+      if (!cashfree) {
         throw new Error("Failed to load Cashfree SDK");
       }
 
       if (planType === 'oneTime') {
-        const {paymentSessionId } = response.data
+        const { payment_session_id } = response.data
 
-        if(!paymentSessionId){
-        throw new Error("Payment Session id is missing ")
-       }
-       const  checkoutOptions = {
-            paymentSessionId: paymentSessionId,
-            redirectTarget: "_self",
+        if (!payment_session_id) {
+          throw new Error("Payment Session id is missing ")
+        }
+        const checkoutOptions = {
+          paymentSessionId: payment_session_id,
+          redirectTarget: "_self",
         };
         cashfree.checkout(checkoutOptions);
-      } else if(planType === 'subscription'){
-        const {subsSessionId } = response.data
+      } else if (planType === 'subscription') {
+        const { subscription_session_id } = response.data
 
-        if(!subsSessionId){
-        throw new Error("subscription Session id is missing ")
-       }
+        if (!subscription_session_id) {
+          throw new Error("subscription Session id is missing ")
+        }
 
-       const  checkoutOptions = {
-            subsSessionId: subsSessionId,
-            redirectTarget: "_self",
+        const checkoutOptions = {
+          subsSessionId: subscription_session_id,
+          redirectTarget: "_self",
         };
         cashfree.subscriptionsCheckout(checkoutOptions);
-      }else {
+      } else {
         throw new Error("Send a valid Plans Type")
       }
     } catch (error) {
       console.error("Error confirming order:", error);
-            toast.error("Payment verification failed. Please contact support.", {
-              id: "payment",
-            });
-            console.log("success")
+      toast.error("Payment verification failed. Please contact support.", {
+        id: "payment",
+      });
+      console.log("success")
     }
     // Payment handler - integrate with Stripe or payment gateway
   };
@@ -150,11 +150,10 @@ export default function PremiumPage() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-lg border transition-all duration-200 ${
-                plan.recommended
-                  ? "border-[#14c8eb] bg-white shadow-lg scale-105"
-                  : "border-border bg-white hover:shadow-md"
-              }`}
+              className={`relative rounded-lg border transition-all duration-200 ${plan.recommended
+                ? "border-[#14c8eb] bg-white shadow-lg scale-105"
+                : "border-border bg-white hover:shadow-md"
+                }`}
             >
               {plan.recommended && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
@@ -211,11 +210,10 @@ export default function PremiumPage() {
                 {/* CTA Button */}
                 <button
                   onClick={() => handlePayment(plan.id, plan.planType)}
-                  className={`w-full py-2 rounded font-semibold text-sm transition-all duration-200 ${
-                    plan.recommended
-                      ? "bg-[#14c8eb] text-black hover:opacity-90"
-                      : "bg-foreground text-white hover:opacity-90 border border-foreground"
-                  }`}
+                  className={`w-full py-2 rounded font-semibold text-sm transition-all duration-200 ${plan.recommended
+                    ? "bg-[#14c8eb] text-black hover:opacity-90"
+                    : "bg-foreground text-white hover:opacity-90 border border-foreground"
+                    }`}
                 >
                   Pay Now
                 </button>
