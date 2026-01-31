@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Poppins, Ubuntu } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Toaster } from "sonner"
@@ -8,11 +8,14 @@ import Footer from "@/components/footer"
 import Header from "@/components/ui/header"
 import { SessionProvider } from "next-auth/react"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const poppins = Ubuntu({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "Interior Design Redesigner",
+  title: "Spzaora",
   description: "Transform your interior spaces with AI-powered design suggestions",
   generator: "v0.app",
   icons: {
@@ -41,14 +44,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className={`antialiased ${poppins.variable}`}>
         <SessionProvider>
-        <Header/>
-        {children}
-        <Analytics />
+          <Header />
+          {children}
+          <Analytics />
           <Toaster richColors position="top-center" />
-         <Footer/>
-         </SessionProvider>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   )

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -9,8 +10,14 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           <div>
             <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-[#14c8eb] rounded transform rotate-45 flex items-center justify-center"></span>
-              spzaora
+              <Image
+                src="/images/logo.png"
+                alt="SPZADORA Logo"
+                width={80}
+                height={80}
+                className="h-auto object-cover "
+              />
+              Spzaora
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Crafting award-winning interiors for residential and commercial

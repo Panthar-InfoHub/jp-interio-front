@@ -188,7 +188,7 @@ export function RedesignForm() {
           <Button
             type="submit"
             disabled={isPending}
-            className="w-full h-12 text-base font-medium"
+            className="w-full h-12 text-base font-medium bg-gradient-to-r from-[#14c8eb] to-[#0ea5e9] text-white"
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {!session
@@ -202,7 +202,13 @@ export function RedesignForm() {
 
       {/* Results Section */}
       {isPending && <ResultSkeleton />}
-      {result && !isPending && <ResultCard result={result} />}
+      {result && !isPending && (
+        <ResultCard
+          result={result}
+          onRedesign={() => form.handleSubmit()}
+          isPending={isPending}
+        />
+      )}
     </div>
   );
 }

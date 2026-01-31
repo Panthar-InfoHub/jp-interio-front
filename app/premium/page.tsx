@@ -1,18 +1,19 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { createOrder, createSubscriptionOrder } from "@/actions/payment";
 import { load } from "@cashfreepayments/cashfree-js";
+import { Award, Check, Crown, Loader2, Sparkles, Zap } from "lucide-react";
+import { useTransition } from "react";
 import { toast } from "sonner";
-// import Header from '@/components/header'
-// import Footer from '@/components/footer'
 
 export default function PremiumPage() {
+  const [isPending, startTransition] = useTransition();
   const plans = [
     {
       id: "e1b6aef5-201b-4fec-944d-033b8a85eee9",
       name: "Starter",
       price: "₹99",
+      icon: Zap,
       description: "Generate 10 images",
       features: [
         "10 image generations",
@@ -28,6 +29,7 @@ export default function PremiumPage() {
       id: "9850cfd1-e0f8-4946-a04d-4eab5f8bccfa",
       name: "Monthly",
       price: "₹299",
+      icon: Sparkles,
       description: "Unlimited images per month",
       features: [
         "Unlimited image generations",
@@ -43,6 +45,7 @@ export default function PremiumPage() {
       id: "547adc4a-714d-4855-b455-62c6707d05ac",
       name: "Six Months",
       price: "₹2,199",
+      icon: Crown,
       description: "Unlimited images for 6 months",
       features: [
         "Unlimited image generations",
@@ -59,6 +62,7 @@ export default function PremiumPage() {
       id: "69acbe7c-44f8-466f-995c-58279ea993b8",
       name: "Annual",
       price: "₹4,199",
+      icon: Award,
       description: "Unlimited images for 12 months",
       features: [
         "Unlimited image generations",
@@ -83,196 +87,190 @@ export default function PremiumPage() {
 
   const handlePayment = async (planId: string, planType: string) => {
     try {
-      const response = planType === 'oneTime' ? await createOrder(planId) : await createSubscriptionOrder(planId);
 
-      if (!response.success || !response.data) {
-        throw new Error("Failed to initiate payment");
-      }
+      startTransition(async () => {
+        const response = planType === 'oneTime' ? await createOrder(planId) : await createSubscriptionOrder(planId);
 
-      if (!cashfree) {
-        throw new Error("Failed to load Cashfree SDK");
-      }
-
-      if (planType === 'oneTime') {
-        const { payment_session_id } = response.data
-
-        if (!payment_session_id) {
-          throw new Error("Payment Session id is missing ")
-        }
-        const checkoutOptions = {
-          paymentSessionId: payment_session_id,
-          redirectTarget: "_self",
-        };
-        cashfree.checkout(checkoutOptions);
-      } else if (planType === 'subscription') {
-        const { subscription_session_id } = response.data
-
-        if (!subscription_session_id) {
-          throw new Error("subscription Session id is missing ")
+        if (!response.success || !response.data) {
+          throw new Error("Failed to initiate payment");
         }
 
-        const checkoutOptions = {
-          subsSessionId: subscription_session_id,
-          redirectTarget: "_self",
-        };
-        cashfree.subscriptionsCheckout(checkoutOptions);
-      } else {
-        throw new Error("Send a valid Plans Type")
-      }
+        if (!cashfree) {
+          throw new Error("Failed to load Cashfree SDK");
+        }
+
+        if (planType === 'oneTime') {
+          const { payment_session_id } = response.data
+
+          if (!payment_session_id) {
+            throw new Error("Payment Session id is missing ")
+          }
+          const checkoutOptions = {
+            paymentSessionId: payment_session_id,
+            redirectTarget: "_self",
+          };
+          cashfree.checkout(checkoutOptions);
+        } else if (planType === 'subscription') {
+          const { subscription_session_id } = response.data
+
+          if (!subscription_session_id) {
+            throw new Error("subscription Session id is missing ")
+          }
+
+          const checkoutOptions = {
+            subsSessionId: subscription_session_id,
+            redirectTarget: "_self",
+          };
+          cashfree.subscriptionsCheckout(checkoutOptions);
+        } else {
+          throw new Error("Send a valid Plans Type")
+        }
+
+      });
     } catch (error) {
       console.error("Error confirming order:", error);
       toast.error("Payment verification failed. Please contact support.", {
         id: "payment",
       });
-      console.log("success")
     }
-    // Payment handler - integrate with Stripe or payment gateway
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* <Header /> */}
-
-      <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col">
+      <main className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full">
         {/* Header Section */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-            Simple, Transparent Pricing
+        <div className="text-center mb-16 md:mb-24">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-foreground mb-6 tracking-tight">
+            Ready to <span className="text-[#14c8eb]">Level Up?</span>
           </h1>
-          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-            Choose the perfect plan to unlock unlimited creativity with
-            SPZAORA's AI image generation
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Unlock the full potential of AI-driven interior design. Choose a plan that fits your vision and start creating today.
           </p>
         </div>
 
         {/* Pricing Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative rounded-lg border transition-all duration-200 ${plan.recommended
-                ? "border-[#14c8eb] bg-white shadow-lg scale-105"
-                : "border-border bg-white hover:shadow-md"
-                }`}
-            >
-              {plan.recommended && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-[#14c8eb] text-black px-3 py-1 rounded-full text-xs font-semibold">
-                    Most Popular
-                  </span>
-                </div>
-              )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+          {plans.map((plan) => {
+            const Icon = plan.icon;
+            return (
+              <div
+                key={plan.name}
+                className={`relative flex flex-col p-8 rounded-[2.5rem] bg-white border transition-all duration-500 hover:-translate-y-2 ${plan.recommended
+                  ? "border-[#14c8eb] shadow-[0_20px_50px_-12px_rgba(20,200,235,0.2)] scale-105 z-10"
+                  : "border-gray-100 hover:shadow-2xl"
+                  }`}
+              >
+                {plan.recommended && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-[#14c8eb] text-black px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
+                      Popular
+                    </span>
+                  </div>
+                )}
 
-              <div className="p-5 flex flex-col h-full">
-                {/* Plan Header */}
-                <div className="mb-4">
-                  <h3 className="text-lg font-bold text-foreground mb-1">
+                <div className="flex-1">
+                  {/* Icon & Name */}
+                  <div className={`w-14 h-14 rounded-2xl mb-6 flex items-center justify-center ${plan.recommended ? "bg-[#14c8eb]/10" : "bg-gray-50"}`}>
+                    <Icon className={`w-7 h-7 ${plan.recommended ? "text-[#14c8eb]" : "text-gray-400"}`} />
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-foreground mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-xs text-muted-foreground mb-2">
+                  <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
                     {plan.description}
                   </p>
 
                   {/* Price */}
-                  <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-bold text-foreground">
+                  <div className="flex items-baseline gap-1 mb-8">
+                    <span className="text-4xl font-extrabold text-foreground">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-sm text-muted-foreground font-medium">
                       {plan.billing}
                     </span>
                   </div>
 
-                  {/* Plan Type Badge */}
-                  <div className="mb-3">
-                    {plan.isSubscription ? (
-                      <span className="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded text-xs font-medium">
-                        Subscription
-                      </span>
-                    ) : (
-                      <span className="inline-block bg-green-50 text-green-700 px-3 py-1 rounded text-xs font-medium">
-                        One-time Payment
-                      </span>
-                    )}
+                  {/* Features List */}
+                  <div className="space-y-4 mb-10">
+                    {plan.features.map((feature) => (
+                      <div key={feature} className="flex items-start gap-3">
+                        <div className="mt-1 p-0.5 rounded-full bg-green-50">
+                          <Check className="w-3.5 h-3.5 text-green-600" />
+                        </div>
+                        <span className="text-sm text-foreground/80 font-medium">{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                </div>
-
-                {/* Features List */}
-                <div className="space-y-2 mb-4 flex-1">
-                  {plan.features.map((feature) => (
-                    <div key={feature} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#14c8eb] flex-shrink-0 mt-0.5" />
-                      <span className="text-xs text-foreground">{feature}</span>
-                    </div>
-                  ))}
                 </div>
 
                 {/* CTA Button */}
                 <button
                   onClick={() => handlePayment(plan.id, plan.planType)}
-                  className={`w-full py-2 rounded font-semibold text-sm transition-all duration-200 ${plan.recommended
-                    ? "bg-[#14c8eb] text-black hover:opacity-90"
-                    : "bg-foreground text-white hover:opacity-90 border border-foreground"
+                  disabled={isPending}
+                  className={`group relative w-full py-4 rounded-2xl font-bold text-base overflow-hidden transition-all duration-300 cursor-pointer text-center flex justify-center items-center ${plan.recommended
+                    ? "bg-[#14c8eb] text-black hover:shadow-[0_0_20px_rgba(20,200,235,0.4)]"
+                    : "bg-foreground text-white hover:bg-black"
                     }`}
                 >
-                  Pay Now
+                  <span className="relative z-10">Get Started</span>
+
+                  {plan.recommended && (
+                    <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
+                  )}
                 </button>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* FAQ Section */}
-        <div className="bg-gray-50 rounded-lg p-6 max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-foreground mb-4 text-center">
-            Frequently Asked Questions
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
+            Questions? We've got answers.
           </h2>
 
-          <div className="space-y-3">
-            <div>
-              <h3 className="font-semibold text-foreground mb-1 text-sm">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
+            <div className="p-6 rounded-2xl bg-white border border-gray-100">
+              <h3 className="font-bold text-foreground mb-2 text-lg">
                 Can I upgrade my plan anytime?
               </h3>
-              <p className="text-muted-foreground text-xs">
-                Yes! You can upgrade to a higher plan at any time. The
-                difference will be prorated to your current billing cycle.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Absolutely! You can upgrade to a higher plan at any time through your dashboard. The difference will be automatically prorated.
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-foreground mb-1 text-sm">
+            <div className="p-6 rounded-2xl bg-white border border-gray-100">
+              <h3 className="font-bold text-foreground mb-2 text-lg">
                 Is there a free trial?
               </h3>
-              <p className="text-muted-foreground text-xs">
-                You can start with our Starter plan for just ₹99 to test the
-                service with 10 image generations.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                We offer a Starter plan for just ₹99 which gives you full access to all features for your first 10 generations.
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-foreground mb-1 text-sm">
-                What happens when my subscription expires?
+            <div className="p-6 rounded-2xl bg-white border border-gray-100">
+              <h3 className="font-bold text-foreground mb-2 text-lg">
+                What about billing cycles?
               </h3>
-              <p className="text-muted-foreground text-xs">
-                Your subscription will automatically renew. You can cancel
-                anytime from your account settings before renewal.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Subscriptions renew automatically. You can manage your billing cycle and view invoices directly in your profile settings.
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-foreground mb-1 text-sm">
+            <div className="p-6 rounded-2xl bg-white border border-gray-100">
+              <h3 className="font-bold text-foreground mb-2 text-lg">
                 Do you offer refunds?
               </h3>
-              <p className="text-muted-foreground text-xs">
-                We offer a 7-day money-back guarantee for subscription plans.
-                One-time purchases are non-refundable.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                We provide a 7-day money-back guarantee for our subscription plans if you're not completely satisfied with the results.
               </p>
             </div>
           </div>
         </div>
       </main>
 
-      {/* <Footer /> */}
     </div>
   );
 }
+

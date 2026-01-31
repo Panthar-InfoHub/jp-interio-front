@@ -26,7 +26,7 @@ export default function SignupPage() {
               className="h-auto w-auto"
             /> */}
           </div>
-          <h1 className="text-3xl font-bold text-foreground text-center">SPZADORA</h1>
+          <h1 className="text-3xl font-bold text-foreground text-center">SPZAORA</h1>
           <p className="text-sm text-muted-foreground mt-1 text-center">
             Designing Dreams, Crafting Homes
           </p>

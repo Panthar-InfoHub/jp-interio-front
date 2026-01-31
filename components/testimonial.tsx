@@ -1,6 +1,6 @@
 "use client"
 
-import { Star } from "lucide-react"
+import { Star, Quote } from "lucide-react"
 
 export default function Testimonials() {
   const testimonials = [
@@ -28,23 +28,35 @@ export default function Testimonials() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-card">
+    <section className="py-16 md:py-24" style={{ backgroundColor: "#f9f9f9" }}>
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Client Stories</h2>
+        <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4">Client Stories</h2>
+        <p className="text-muted-foreground text-lg mb-12">See what our clients are saying about their new spaces.</p>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, idx) => (
-            <div key={idx} className="p-8    border border-border rounded-lg" style={{ backgroundColor: "#f5f5f5" }}>
-              <div className="flex gap-1 mb-4">
+            <div
+              key={idx}
+              className="p-8 rounded-[2rem] border-none shadow-sm flex flex-col items-start transition-transform hover:-translate-y-1 duration-300"
+              style={{ backgroundColor: "#FFFFFF" }}
+            >
+              <div className="mb-8">
+                <h4 className="font-bold text-xl text-foreground leading-none mb-1">{testimonial.name}</h4>
+                <p className="text-sm text-muted-foreground font-medium">{testimonial.role}</p>
+              </div>
+
+              <div className="mb-4">
+                <Quote className="w-10 h-10 text-[#14c8eb] opacity-40 rotate-180" />
+              </div>
+
+              <p className="text-foreground/80 mb-6 leading-relaxed text-base font-medium">
+                {testimonial.content}
+              </p>
+
+              <div className="mt-auto flex gap-1">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  /* change star color to cyan */
                   <Star key={i} className="w-4 h-4 fill-[#14c8eb] text-[#14c8eb]" />
                 ))}
-              </div>
-              <p className="text-foreground mb-6 leading-relaxed text-sm">{testimonial.content}</p>
-              <div className="pt-4 border-t border-border">
-                <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
-                <p className="text-xs text-muted-foreground">{testimonial.role}</p>
               </div>
             </div>
           ))}

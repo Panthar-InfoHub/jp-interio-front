@@ -4,12 +4,11 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export async function createOrder(planId: string) {
+  const session = await auth();
+  if (!session) {
+    redirect("/signup");
+  }
   try {
-
-    const session = await auth();
-    if (!session) {
-      redirect("/signup");
-    }
 
     const orderResponse = await fetch(`${API_URL}/payment/create-order`, {
       method: "POST",
@@ -60,8 +59,8 @@ export async function createSubscriptionOrder(planId: string) {
     console.debug("Create Subscription order response:", response);
 
     return response;
-  } catch (error) {
-    console.error("Create Subscription order error:", error);
+  } catch (error: any) {
+    console.error("Create Subscription order error:", error.response);
     return {
       success: false,
       message: "Subscription order creation failed",
