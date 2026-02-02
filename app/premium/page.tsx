@@ -79,7 +79,7 @@ export default function PremiumPage() {
   let cashfree: any;
   var initializeSDK = async function () {
     cashfree = await load({
-      mode: "sandbox",
+      mode: process.env.NEXT_PUBLIC_CASHFREE_MODE as "production" | "sandbox",
     });
   };
   initializeSDK();
