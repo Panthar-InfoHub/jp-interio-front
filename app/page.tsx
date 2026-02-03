@@ -5,6 +5,7 @@ import { RedesignForm } from "@/components/redesign-form"
 import SelectedWorks from "@/components/selectd-work"
 import Services from "@/components/services"
 import Testimonials from "@/components/testimonial"
+import Gallery from "@/components/sliding/gallery"
 import Header from "@/components/ui/header"
 
 export default function Home() {
@@ -29,8 +30,8 @@ export default function Home() {
           <RedesignForm />
         </div>
       </div>
-
-      <SelectedWorks />
+      <Gallery />
+      {/* <Selec  tedWorks /> */}
       <Services/>
       <Philosophy/>
       <Testimonials/>

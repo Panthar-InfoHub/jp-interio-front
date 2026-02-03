@@ -94,6 +94,7 @@ export function RedesignForm() {
               return;
             }
             toast.warning(response.error || "Failed to generate design");
+            router.push("/premium");
           }
         } catch (error) {
           toast.error("An unexpected error occurred");
