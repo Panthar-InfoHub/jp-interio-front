@@ -66,18 +66,18 @@ export default function Footer() {
             <ul className="text-sm space-y-2 text-muted-foreground">
               <li>
                 <a
-                  href="mailto:hello@jpinterio.com"
+                  href="mailto:support@spzaora.com"
                   className="hover:text-foreground transition"
                 >
-                  kjenterprise26@gmail.com
+                  support@spzaora.com
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+917068999458"
                   className="hover:text-foreground transition"
                 >
-                  +91 7348489700
+                  +91 7068999458
                 </a>
               </li>
               {/* <li>
