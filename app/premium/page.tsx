@@ -5,8 +5,12 @@ import { load } from "@cashfreepayments/cashfree-js";
 import { Award, Check, Crown, Loader2, Sparkles, Zap } from "lucide-react";
 import { useTransition } from "react";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function PremiumPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const plans = [
     {
@@ -26,7 +30,7 @@ export default function PremiumPage() {
       planType: "oneTime",
     },
     {
-      id: "9850cfd1-e0f8-4946-a04d-4eab5f8bccfa",
+      id: "a88e159a-f033-4f79-8f0d-74fbd2e5bb89",
       name: "Monthly",
       price: "₹299",
       icon: Sparkles,
@@ -42,7 +46,7 @@ export default function PremiumPage() {
       planType: "subscription",
     },
     {
-      id: "547adc4a-714d-4855-b455-62c6707d05ac",
+      id: "61c085cb-a2d3-4704-a87c-df61085bfd91",
       name: "Six Months",
       price: "₹2,199",
       icon: Crown,
@@ -59,7 +63,7 @@ export default function PremiumPage() {
       planType: "subscription",
     },
     {
-      id: "69acbe7c-44f8-466f-995c-58279ea993b8",
+      id: "400e1560-5e14-4ff4-af44-3bb676d0e346",
       name: "Annual",
       price: "₹4,199",
       icon: Award,
@@ -86,6 +90,10 @@ export default function PremiumPage() {
 
 
   const handlePayment = async (planId: string, planType: string) => {
+
+    if (!session){
+      router.push("/signup")
+    }
     try {
 
       startTransition(async () => {
