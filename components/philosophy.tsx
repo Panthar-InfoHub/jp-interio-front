@@ -1,72 +1,82 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
+import Image from "next/image"
 
 export default function Philosophy() {
   return (
-    <section id="about" className="py-16 md:py-24" style={{ backgroundColor: "#f5f5f5" }}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left side - Image with floating card */}
-          <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
-              <img
-                src="/minimalist-interior-design-aesthetic-philosophy.jpg"
-                alt="Philosophy showcase"
-                className="w-full h-full object-cover"
+    <section id="philosophy" className="py-24 bg-background">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Left side - Elegant Image Composition */}
+          <div className="relative group">
+            <div className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] shadow-2xl border border-border/40">
+              <Image
+                src="/images/minimalist-villa.jpg"
+                alt="Architecture and Philosophy"
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              {/* Floating card on image */}
-              <div className="absolute top-8 left-8 bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg">
-                <p className="text-sm font-semibold text-[#14c8eb] uppercase tracking-wide">
-                  Our Philosophy
-                </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
+            </div>
+
+            {/* Subtle floating badge */}
+            <div className="absolute -bottom-6 -right-6 md:right-12 bg-card border border-border/60 backdrop-blur-md p-8 rounded-3xl shadow-xl max-w-[240px] hidden md:block">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-[#0ea7e8]/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-[#0ea7e8]" />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Certified Quality</span>
               </div>
+              <p className="text-sm text-foreground/80 leading-relaxed font-light">
+                Every detail is meticulously crafted to ensure uncompromising luxury.
+              </p>
             </div>
           </div>
 
-          {/* Right side - Content aligned like image 2 */}
-          <div className="space-y-10">
-            {/* Header and text at the top (Image 2 style) */}
-            <div className="space-y-6">
-              <h3 className="text-5xl lg:text-6xl font-bold text-foreground leading-[1.1]">
-                We provide you the best experience
-              </h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                You don't have to worry about the results because all of these interiors are made by professionals in
-                their fields with an elegant and luxurious style and with premium quality materials. At spzaora,
-                we believe that your environment profoundly impacts your well-being.
+          {/* Right side - Narrative Content */}
+          <div className="flex flex-col">
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="h-[1px] w-8 bg-[#0ea7e8]"></span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#0ea7e8]">Our Philosophy</span>
+            </div>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-[1.15] mb-8 tracking-tight">
+              We provide you with a <br />
+              <span className="text-muted-foreground italic">transcendent</span> experience
+            </h2>
+
+            <div className="space-y-6 mb-12">
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
+                At SPZAORA, we believe that your environment profoundly impacts your well-being. Our approach blends timeless aesthetics with modern functionality.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                You don&apos;t have to worry about the results because all of these interiors are curated by professionals in their fields with an elegant and luxurious style and with premium quality materials.
               </p>
             </div>
 
-            {/* Statistics (Compact style like image 2) */}
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-gray-200">
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">100%</p>
-                <p className="text-sm text-muted-foreground font-medium mt-1 leading-tight">
-                  Client <span className="block">satisfaction</span>
+            {/* Statistics Refined */}
+            <div className="grid grid-cols-3 gap-8 pt-10 border-t border-border/60">
+              <div className="space-y-2">
+                <p className="text-3xl md:text-4xl font-light text-foreground tracking-tighter">100<span className="text-[#0ea7e8]">%</span></p>
+                <p className="text-[10px] md:text-xs text-muted-foreground font-bold uppercase tracking-widest leading-none">
+                  Client <br /> Satisfaction
                 </p>
               </div>
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">12</p>
-                <p className="text-sm text-muted-foreground font-medium mt-1 leading-tight">
-                  Awards <span className="block">gained</span>
+              <div className="space-y-2">
+                <p className="text-3xl md:text-4xl font-light text-foreground tracking-tighter">12</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground font-bold uppercase tracking-widest leading-none">
+                  Global <br /> Awards
                 </p>
               </div>
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">150+</p>
-                <p className="text-sm text-muted-foreground font-medium mt-1 leading-tight">
-                  Projects <span className="block">done</span>
+              <div className="space-y-2">
+                <p className="text-3xl md:text-4xl font-light text-foreground tracking-tighter">150<span className="text-[#0ea7e8]">+</span></p>
+                <p className="text-[10px] md:text-xs text-muted-foreground font-bold uppercase tracking-widest leading-none">
+                  Premium <br /> Projects
                 </p>
               </div>
             </div>
-
-            {/* Button */}
-            {/* <div className="pt-4">
-              <button className="group flex items-center gap-3 px-8 py-4 border-2 border-foreground rounded-lg font-bold text-foreground hover:bg-foreground hover:text-white transition-all duration-300">
-                Learn more
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </button>
-            </div> */}
           </div>
         </div>
       </div>
