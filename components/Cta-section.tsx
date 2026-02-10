@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react"
 
 export default function CTASection() {
   return (
-    <section id="contact" className=" px-6">
+    <section className=" px-6">
       <div className="max-w-7xl mx-auto">
         {/* Main CTA Card */}
         <div className="relative overflow-hidden rounded-[3rem] bg-[#0a0f2c] p-12 md:p-24 text-center shadow-2xl border border-white/5">

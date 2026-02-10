@@ -3,15 +3,37 @@
 import { createOrder, createSubscriptionOrder } from "@/actions/payment";
 import { load } from "@cashfreepayments/cashfree-js";
 import { Award, Check, Crown, Loader2, Sparkles, Zap } from "lucide-react";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function PremiumPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { user, fetchUser } = useUserStore()
+
+  useEffect(() => {
+    if (session && !user) {
+      fetchUser()
+    }
+  }, [session])
+  const entitlements = user?.entitlements ?? null
+  const hasEntitlement = Boolean(entitlements)
+  const isUnlimited = hasEntitlement && entitlements?.is_limited === false
+  const isLimited = hasEntitlement && entitlements?.is_limited === true
+
+  let buttonLabel = "Buy Plan"
+  let isDisabled = false
+  if (isUnlimited) {
+    buttonLabel = "Already Purchased"
+    isDisabled = true
+  } else if (isLimited) {
+    buttonLabel = "Upgrade"
+  }
+
   const plans = [
     {
       id: "e1b6aef5-201b-4fec-944d-033b8a85eee9",
@@ -91,7 +113,7 @@ export default function PremiumPage() {
 
   const handlePayment = async (planId: string, planType: string) => {
 
-    if (!session){
+    if (!session) {
       router.push("/signup")
     }
     try {
@@ -215,15 +237,17 @@ export default function PremiumPage() {
                 {/* CTA Button */}
                 <button
                   onClick={() => handlePayment(plan.id, plan.planType)}
-                  disabled={isPending}
-                  className={`group relative w-full py-4 rounded-2xl font-bold text-base overflow-hidden transition-all duration-300 cursor-pointer text-center flex justify-center items-center ${plan.recommended
-                    ? "bg-[#14c8eb] text-black hover:shadow-[0_0_20px_rgba(20,200,235,0.4)]"
-                    : "bg-foreground text-white hover:bg-black"
-                    }`}
+                  disabled={isPending || isDisabled}
+                  className={`group relative w-full py-4 rounded-2xl font-bold text-base overflow-hidden transition-all duration-300 flex justify-center items-center
+                    ${plan.recommended
+                      ? "bg-[#14c8eb] text-black hover:shadow-[0_0_20px_rgba(20,200,235,0.4)]"
+                      : "bg-foreground text-white hover:bg-black"}
+                    ${isDisabled ? "opacity-60 cursor-not-allowed" : ""}
+                  `}
                 >
-                  <span className="relative z-10">Get Started</span>
+                  <span className="relative z-10">{buttonLabel}</span>
 
-                  {plan.recommended && (
+                  {plan.recommended && !isDisabled && (
                     <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
                   )}
                 </button>

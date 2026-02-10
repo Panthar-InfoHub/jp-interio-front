@@ -48,7 +48,7 @@ const galleryItems = [
 export default function Gallery() {
   return (
     <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div id="gallery" className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-4">

@@ -15,6 +15,7 @@ import { getSignedUploadUrl } from "@/lib/storage";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/useUserStore"
 
 const redesignSchema = z.object({
   description: z
@@ -36,6 +37,7 @@ const redesignSchema = z.object({
 });
 
 export function RedesignForm() {
+  const { fetchUser } = useUserStore()
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{
@@ -84,6 +86,7 @@ export function RedesignForm() {
               imageUrl: response.data.image_uri,
               description: response.data.description,
             });
+            await fetchUser();
             toast.success("Design generated successfully!");
           } else {
             setResult(null);
