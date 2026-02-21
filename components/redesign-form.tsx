@@ -13,9 +13,10 @@ import { ResultSkeleton } from "./result-skeleton";
 import { ResultCard } from "./result-card";
 import { getSignedUploadUrl } from "@/lib/storage";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/useUserStore"
+import { API_URL } from "@/lib/apiUtil";
 
 const redesignSchema = z.object({
   description: z
@@ -45,7 +46,7 @@ export function RedesignForm() {
     description: string;
   } | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   const router = useRouter();
 
   const form = useForm({
@@ -96,8 +97,41 @@ export function RedesignForm() {
               router.push("/premium");
               return;
             }
-            toast.warning(response.error || "Failed to generate design");
-            router.push("/premium");
+
+            if (response.error === "Token has expired, please login again") {
+              try {
+                const loginRes = await axios.post(`${API_URL}/auth/login`, {
+                  email: session?.user?.email,
+                });
+
+                if (loginRes.data?.success) {
+                  const newToken = loginRes.data.data.token;
+                  await update({ apiToken: newToken });
+
+                  const retryResponse = await redesignImage({
+                    image_uri: gs_uri,
+                    stylePrompt: value.description,
+                  });
+
+                  if (retryResponse.success && retryResponse.data?.image_uri) {
+                    setResult({
+                      imageUrl: retryResponse.data.image_uri,
+                      description: retryResponse.data.description,
+                    });
+                    await fetchUser();
+                    toast.success("Design generated successfully!");
+                    return;
+                  }
+                }
+              } catch (error) {
+                console.error("Silent refresh failed", error);
+              }
+
+              await signIn("google");
+              toast.warning("Session expired, please login again");
+              return;
+            }
+            toast.warning(response.error || "Failed to generate design due to service issue from server");
           }
         } catch (error) {
           toast.error("An unexpected error occurred");
