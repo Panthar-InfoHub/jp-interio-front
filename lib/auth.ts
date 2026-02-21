@@ -52,11 +52,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return false;
     },
 
-    async jwt({ token, user }): Promise<JWT> {
+    async jwt({ token, user, trigger, session }): Promise<JWT> {
       if (user) {
         token.apiToken = user.apiToken;
         token.userId = user.userId;
       }
+
+      if (trigger === "update" && session?.apiToken) {
+        token.apiToken = session.apiToken;
+      }
+
       return token;
     },
     async session({ session, token }) {
